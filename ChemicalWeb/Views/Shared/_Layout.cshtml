@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
 <html>
 <head>
     <title>@ViewData["Title"]</title>
@@ -7,6 +8,7 @@
 <body>
 
 @RenderBody()
+@await RenderSectionAsync("scripts", required: true)
 
 </body>
 </html>
