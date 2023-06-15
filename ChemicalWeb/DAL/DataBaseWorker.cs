@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Configuration;
+using System.Diagnostics;
 using ConfigurationManager = System.Configuration.ConfigurationManager;
 
 namespace ChemicalWeb.DAL; 
@@ -315,7 +316,7 @@ public abstract class DataBaseWorker {
     //
     
     //
-    public static List<MaterialInfo> GetMaterialsInfo(string parameter) {
+    /*public static List<MaterialInfo> GetMaterialsInfo(string parameter) {
         
         var query = $"SELECT material.type, value AS `{parameter}`, unit " +
                     "FROM material " +
@@ -334,15 +335,53 @@ public abstract class DataBaseWorker {
         connection.Close();
         
         return result;
-    }
+    }*/
     //
+    
+    public static string ClickExport() {
+        //@TODO: поменять -p в методе и в app.config
+        try {
+
+            string commands = @"cd C:\Program Files\MySQL\MySQL Server 8.0\bin && mysqldump.exe -h127.0.0.1 " +
+                              @$"-uroot -p04042002Mm! chemical > {Environment.CurrentDirectory}\dump.sql";
+            string batPath = Path.Combine(Path.GetTempPath(), "dump.bat");
+            File.WriteAllText(batPath, commands);
+            Process cmd = Process.Start(batPath);
+            cmd.WaitForExit();
+            File.Delete(batPath);
+            return Path.GetTempPath();
+        }
+        catch
+        {
+            Console.WriteLine("Ошибка");
+            return "";
+        }
+    }
+    
+    public static bool ClickImport() {
+        //@TODO: поменять -p в методе и в app.config
+        try {
+            string commands = @$"cd C:\Program Files\MySQL\MySQL Server 8.0\bin && mysql -uroot -p04042002Mm! chemical < {Environment.CurrentDirectory}\dump.sql";
+            string batPath = Path.Combine(Path.GetTempPath(), "dump.bat");
+            File.WriteAllText(batPath, commands);
+            Process cmd = Process.Start(batPath);
+            cmd.WaitForExit();
+            File.Delete(batPath);
+            return true;
+        }
+        catch
+        {
+            Console.WriteLine("Ошибка");
+            return false;
+        }
+    }
     public static List<MaterialInfo> GetMaterialsInfoForLabel(string materialName) {
         
-        string query = "SELECT name, value, unit " +
-                       "FROM material " +
-                       "JOIN parameter_material_attr pma on material.ID_material = pma.ID_material " +
-                       "JOIN parameter p on pma.ID_parameter = p.ID_parameter " +
-                       $"WHERE material.type = \"{materialName}\" and pma.type = \"Свойство материала\"";
+        var query = "SELECT name, value, unit " +
+                    "FROM material " +
+                    "JOIN parameter_material_attr pma on material.ID_material = pma.ID_material " +
+                    "JOIN parameter p on pma.ID_parameter = p.ID_parameter " +
+                    $"WHERE material.type = \"{materialName}\" and pma.type = \"Свойство материала\"";
         using var connection = JoinBase();
         var command = new MySqlCommand();
         command.Connection = connection;
@@ -356,30 +395,69 @@ public abstract class DataBaseWorker {
         
         return result;
     }
-    // public static List<MaterialInfo> GetCoefficientsInfoForLabel(string materialName) {
-    //     
-    //     var query = "SELECT name, value, unit " +
-    //                 "FROM material " +
-    //                 "JOIN parameter_material_attr pma on material.ID_material = pma.ID_material " +
-    //                 "JOIN parameter p on pma.ID_parameter = p.ID_parameter " +
-    //                 $"WHERE material.type = \"{materialName}\" and pma.type = \"Коэффициент\"";
-    //     using var connection = JoinBase();
-    //     var command = new MySqlCommand();
-    //     command.Connection = connection;
-    //     command.CommandText = query;
-    //     var reader = command.ExecuteReader();
-    //     var result = new List<MaterialInfo>();
-    //     while (reader.Read()) {
-    //         var first = reader.GetString(0);
-    //         var second = reader.GetDouble(1);
-    //         var isNull = reader.IsDBNull(2);
-    //         var third = isNull ? "" : reader.GetString(2);
-    //         result.Add(new (first, second, third));
-    //     }
-    //     connection.Close();
-    //
-    //     return result;
-    // }
+    
+    public static bool Backup(string file)
+    {
+        try
+        {
+            using var conn = new MySqlConnection(ConnectionString);
+            using var cmd = new MySqlCommand();
+            using var mb = new MySqlBackup(cmd);
+            cmd.Connection = conn;
+            conn.Open();
+            mb.ExportToFile(file);
+            conn.Close();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+    
+    public static bool Restore(string file)
+    {
+        try
+        {
+            using var conn = new MySqlConnection(ConnectionString);
+            using var cmd = new MySqlCommand();
+            using var mb = new MySqlBackup(cmd);
+            cmd.Connection = conn;
+            conn.Open();
+            mb.ImportFromFile(file);
+            conn.Close();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return false;
+        }
+    }
+     public static List<MaterialInfo> GetCoefficientsInfoForLabel(string materialName) {
+         
+         var query = "SELECT name, value, unit " +
+                     "FROM material " +
+                     "JOIN parameter_material_attr pma on material.ID_material = pma.ID_material " +
+                     "JOIN parameter p on pma.ID_parameter = p.ID_parameter " +
+                     $"WHERE material.type = \"{materialName}\" and pma.type = \"Коэффициент\"";
+         using var connection = JoinBase();
+         var command = new MySqlCommand();
+         command.Connection = connection;
+         command.CommandText = query;
+         var reader = command.ExecuteReader();
+         var result = new List<MaterialInfo>();
+         while (reader.Read()) {
+             var first = reader.GetString(0);
+             var second = reader.GetDouble(1);
+             var isNull = reader.IsDBNull(2);
+             var third = isNull ? "" : reader.GetString(2);
+             result.Add(new (first, second, third));
+         }
+         connection.Close();
+    
+         return result;
+     }
     //
     // public static Dictionary<string, string> GetMaterialsValues(string selectedMaterial) {
     //

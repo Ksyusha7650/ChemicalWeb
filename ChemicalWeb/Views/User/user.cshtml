@@ -11,9 +11,7 @@
     var customCulture = (CultureInfo)Thread.CurrentThread.CurrentCulture.Clone();
     customCulture.NumberFormat.NumberDecimalSeparator = ".";
     Thread.CurrentThread.CurrentCulture = customCulture;
-    // var parameters = .ChannelDataBase.GetGeometricParameters("First");
     var materials = DataBaseWorker.GetMaterials();
-    // var materialInfo = DataBaseWorker.GetMaterialsInfo("Полистирол");
 }
 
 <!DOCTYPE html>
@@ -28,9 +26,9 @@
 
 <body>
 <div class="bd_div">
-    <button class="bd">Экспортировать базу данных</button>
-    <button class="bd">Импортировать базу данных</button>
-    <button class="exit">Выход</button>
+    <form class="bd" action="/User/ExportDataBase"><button  type="submit">Экспортировать базу данных</button></form>
+    <form class="bd" action="/User/ImportDataBase"><button  type="submit">Импортировать базу данных</button></form>
+    <form class="exit" action="/User/GoBack"><button  type="submit">Выход</button></form>
 </div>
 <div class="blocks">
     <div class="blockParameters geometric">
@@ -60,14 +58,12 @@
             <form action="/User/GetMaterialsInfo" method="get">
                 <select class="MaterialComboBox" name="material">
                     <option selected>@ViewBag.currentMaterial</option>
-                    @foreach (var material in materials) {
-                        if (material != ViewBag.currentMaterial) {
-                            <option value=@material>@material</option>
-                        }
+                    @foreach (var material in materials.Where(material => material != ViewBag.currentMaterial))
+                    {
+                        <option value=@material>@material</option>
                     }
                 </select>
-                <label for="inputMaterial">Выбрать материал:</label>
-                <input type="submit" id="inputMaterial"/>
+                <input type="submit" content="Выбрать материал"/>
             </form>
         </div>
         <div class="size">
@@ -128,27 +124,27 @@
         <div class="size">
             <div class="parameters">
                 <p class="name">Коэффициент консистенции при температуре приведения:</p>
-                <input class="mu0" type="number" value="50000">
+                <input class="mu0" type="number" value="@ViewBag.c1">
                 <p class="units">Па*с^n</p>
             </div>
             <div class="parameters">
                 <p class="name">Энергия активации вязкого течения материала:</p>
-                <input class="Ea" type="number" value="42000">
+                <input class="Ea" type="number" value="@ViewBag.c2">
                 <p class="units">Дж/моль</p>
             </div>
             <div class="parameters">
                 <p class="name">Температура приведения:</p>
-                <input class="Tr" type="number" value="130">
+                <input class="Tr" type="number" value="@ViewBag.c3">
                 <p class="units">°С</p>
             </div>
             <div class="parameters">
                 <p class="name">Индекс течения:</p>
-                <input class="n" type="number" value="0.37">
+                <input class="n" type="number" value="@ViewBag.c4">
                 <p class="units"></p>
             </div>
             <div class="parameters">
                 <p class="name">Коэффициент теплоотдачи от крышки:</p>
-                <input class="alphaU" type="number" value="500">
+                <input class="alphaU" type="number" value="@ViewBag.c5">
                 <p class="units">
                     Вт/(м
                     <sup>
