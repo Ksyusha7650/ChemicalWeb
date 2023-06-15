@@ -1,0 +1,46 @@
+{
+  "Version": 1,
+  "Hash": "Eyn+ggq1HGeitoFHFyyBXyDgrApJ8tSkZQmugr2Wtjs=",
+  "Source": "ChemicalWeb",
+  "BasePath": "_content/ChemicalWeb",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\abrle\\RiderProjects\\ChemicalWeb\\ChemicalWeb\\obj\\Debug\\net7.0\\scopedcss\\bundle\\ChemicalWeb.styles.css",
+      "SourceId": "ChemicalWeb",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\abrle\\RiderProjects\\ChemicalWeb\\ChemicalWeb\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
+      "BasePath": "_content/ChemicalWeb",
+      "RelativePath": "ChemicalWeb.styles.css",
+      "AssetKind": "All",
+      "AssetMode": "CurrentProject",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "ScopedCss",
+      "AssetTraitValue": "ApplicationBundle",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\abrle\\RiderProjects\\ChemicalWeb\\ChemicalWeb\\obj\\Debug\\net7.0\\scopedcss\\bundle\\ChemicalWeb.styles.css"
+    },
+    {
+      "Identity": "C:\\Users\\abrle\\RiderProjects\\ChemicalWeb\\ChemicalWeb\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\ChemicalWeb.bundle.scp.css",
+      "SourceId": "ChemicalWeb",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\abrle\\RiderProjects\\ChemicalWeb\\ChemicalWeb\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
+      "BasePath": "_content/ChemicalWeb",
+      "RelativePath": "ChemicalWeb.bundle.scp.css",
+      "AssetKind": "All",
+      "AssetMode": "Reference",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "ScopedCss",
+      "AssetTraitValue": "ProjectBundle",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\abrle\\RiderProjects\\ChemicalWeb\\ChemicalWeb\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\ChemicalWeb.bundle.scp.css"
+    }
+  ]
+}

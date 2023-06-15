@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChemicalWeb", "ChemicalWeb\ChemicalWeb.csproj", "{254BF554-0C18-49B7-A522-2BBC99AD9DBD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{254BF554-0C18-49B7-A522-2BBC99AD9DBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{254BF554-0C18-49B7-A522-2BBC99AD9DBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{254BF554-0C18-49B7-A522-2BBC99AD9DBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{254BF554-0C18-49B7-A522-2BBC99AD9DBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

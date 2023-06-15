@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\abrle\\RiderProjects\\ChemicalWeb\\ChemicalWeb\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\ChemicalWeb.bundle.scp.css",
+      "PackagePath": "staticwebassets\\ChemicalWeb.bundle.scp.css"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.ChemicalWeb.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.ChemicalWeb.props",
+      "PackagePath": "build\\ChemicalWeb.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.ChemicalWeb.props",
+      "PackagePath": "buildMultiTargeting\\ChemicalWeb.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.ChemicalWeb.props",
+      "PackagePath": "buildTransitive\\ChemicalWeb.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

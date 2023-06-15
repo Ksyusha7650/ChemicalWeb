@@ -1,0 +1,39 @@
+﻿@using ChemicalWeb.DAL
+@model ChemicalWeb.Views.Home.ModelIndex
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head runat="server">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chemistry</title>
+</head>
+
+<body>
+<div class="container">
+  <form action="" method="post">
+    <h2>Авторизация</h2>
+    <label for="username">Имя пользователя:</label>
+    
+    <form method="post">
+      <input class="name" type="text" id="username" name="login" required>
+      <label for="password">Пароль:</label>
+      <input class="log" type="password" id="password" name="password" required>
+       <div>
+         <button class="enterUser" type="submit">Пользователь</button>
+         <button class="enterAdmin" type="submit">Администратор</button>
+         </div>
+    </form>
+   
+  </form>
+</div>
+
+</body>
+
+</html>

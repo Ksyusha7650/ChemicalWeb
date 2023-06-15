@@ -1,0 +1,169 @@
+body[b-swqtg28ooj] {
+    background-color: #E6E6FA;
+}
+
+.blocks[b-swqtg28ooj] {
+    display: flex;
+}
+
+.blockParameters[b-swqtg28ooj] {
+    width: 25%;
+}
+
+.parameters[b-swqtg28ooj] {
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.geometric[b-swqtg28ooj] {
+    border: 1px solid #dddddd;
+    /* width: 380px; */
+    height: 280px;
+}
+
+.material[b-swqtg28ooj] {
+    border: 1px solid #dddddd;
+    /* width: 380px; */
+    height: 280px;
+}
+
+.mode[b-swqtg28ooj] {
+    border: 1px solid #dddddd;
+    /* width: 380px; */
+    height: 139px;
+}
+
+.decision[b-swqtg28ooj] {
+    border: 1px solid #dddddd;
+    /* width: 380px; */
+    height: 139px;
+}
+
+.coefficient[b-swqtg28ooj] {
+    border: 1px solid #dddddd;
+    /* width: 380px; */
+    height: 280px;
+}
+
+.materialH[b-swqtg28ooj] {
+    display: flex;
+    align-items: center;
+}
+
+.materialH select[b-swqtg28ooj] {
+    height: 25px;
+    width: 150px;
+    margin-left: 10px;
+}
+
+.material .name[b-swqtg28ooj] {
+    width: 180px;
+}
+
+.mode .name[b-swqtg28ooj] {
+    width: 160px;
+}
+
+.decision .name[b-swqtg28ooj] {
+    width: 220px;
+}
+
+.coefficient .name[b-swqtg28ooj] {
+    width: 210px;
+}
+
+h2[b-swqtg28ooj] {
+    margin-left: 10px;
+}
+
+.size[b-swqtg28ooj] {
+    margin: 10px;
+}
+
+.geometric .name[b-swqtg28ooj] {
+    width: 80px;
+}
+
+input[b-swqtg28ooj] {
+    width: 60px;
+    height: 20px;
+}
+
+.units[b-swqtg28ooj] {
+    margin-left: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.name[b-swqtg28ooj] {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.culc[b-swqtg28ooj] {
+    width: 100%;
+    height: 30px;
+}
+
+.bd[b-swqtg28ooj] {
+    width: 50%;
+    height: 30px;
+}
+
+.bd_div[b-swqtg28ooj] {
+    display: flex;
+}
+
+canvas[b-swqtg28ooj] {
+    width: 49.8%;
+    height: 500px
+}
+
+table[b-swqtg28ooj] {
+    width: 100%;
+    height: 400px;
+}
+
+button[b-swqtg28ooj] {
+    background-color: #3366CC;
+    color: #FFFFFF;
+    font-size: 18px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 2px;
+}
+
+.bd[b-swqtg28ooj] {
+    margin-right: 2px;
+}
+
+.res[b-swqtg28ooj] {
+    display: flex;
+}
+
+.res div[b-swqtg28ooj]{
+    width: 33%;
+    text-align: center;
+    font-size: 24px;
+}
+
+td[b-swqtg28ooj]{
+    text-align: center;
+    font-size: 18px;
+    width: 33%;
+}
+
+th[b-swqtg28ooj],
+td[b-swqtg28ooj] {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+th[b-swqtg28ooj] {
+    background-color: #3366CC;
+    color: white;
+    width: 33.3%;
+}
