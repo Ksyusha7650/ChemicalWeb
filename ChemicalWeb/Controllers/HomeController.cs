@@ -15,6 +15,8 @@ public class HomeController : Controller {
     [HttpPost]
     public IActionResult Index(string login, string password) {
         var isUser = DataBaseWorker.CheckUserData(login, password);
-        return isUser ? RedirectToAction("User", "User") : RedirectToAction("Index");
+        return isUser ? login == "admin" ? 
+            RedirectToAction("Admin", "Admin") : RedirectToAction("User", "User") 
+            : RedirectToAction("Index");
     }
 }

@@ -40,6 +40,11 @@ public abstract class DataBaseWorker {
         string Unit
     );
 
+    public record User(
+        string login,
+        string password
+    );
+
     private static MySqlConnection JoinBase() {
         var connection = new MySqlConnection();
         connection.ConnectionString = ConnectionString;
@@ -47,29 +52,78 @@ public abstract class DataBaseWorker {
         return connection;
     }
     
-    // public static void AddParameter(ParameterInfo parameterInfo) {
-    //
-    //     var query = "INSERT parameter(name, symbol, unit) " +
-    //                 $"VALUES ('{parameterInfo.Name}', '{parameterInfo.Symbol}', '{parameterInfo.Unit}');";
-    //     using var connection = JoinBase();
-    //     var command = new MySqlCommand();
-    //     command.Connection = connection;
-    //     command.CommandText = query;
-    //     command.ExecuteReader();
-    //     connection.Close();
-    // }
-    //
-    // public static void AddMaterial(string materialType) {
-    //
-    //     var query = "INSERT material(type) " +
-    //                 $"VALUES ('{materialType}');";
-    //     using var connection = JoinBase();
-    //     var command = new MySqlCommand();
-    //     command.Connection = connection;
-    //     command.CommandText = query;
-    //     command.ExecuteReader();
-    //     connection.Close();
-    // }
+    public static List<User> GetUsers() {
+        const string query = "SELECT * FROM users;";
+        using var connection = JoinBase();
+        var command = new MySqlCommand();
+        command.Connection = connection;
+        command.CommandText = query;
+        var reader = command.ExecuteReader();
+        var result = new List<User>();
+        while (reader.Read()) {
+            result.Add( new (reader.GetString(0), 
+                reader.GetString(1)));
+        }
+        connection.Close();
+        return result;
+    }
+    
+    public static void AddUser(string login, string password) {
+        var query = $"INSERT INTO users (login, password) VALUES  ('{login}', '{password}');";
+        using var connection = JoinBase();
+        var command = new MySqlCommand();
+        command.Connection = connection;
+        command.CommandText = query;
+        command.ExecuteReader();
+        connection.Close();
+    }
+    
+    public static void ChangePassword(string login, string password) {
+        var query = "UPDATE users SET password = @password WHERE login = @login;";
+        using var connection = JoinBase();
+        var command = new MySqlCommand();
+        command.Parameters.AddWithValue("@login", login);
+        command.Parameters.AddWithValue("@password", password);
+        command.Connection = connection;
+        command.CommandText = query;
+        command.ExecuteReader();
+        connection.Close();
+    }
+    
+    public static void DeleteUser(string login) {
+        var query = "DELETE FROM users where login = @login;";
+        using var connection = JoinBase();
+        var command = new MySqlCommand();
+        command.Parameters.AddWithValue("@login", login);
+        command.Connection = connection;
+        command.CommandText = query;
+        command.ExecuteReader();
+        connection.Close();
+    }
+    
+     public static void AddParameter(ParameterInfo parameterInfo) {
+    
+         var query = "INSERT parameter(name, symbol, unit) " +
+                     $"VALUES ('{parameterInfo.Name}', '{parameterInfo.Symbol}', '{parameterInfo.Unit}');";
+         using var connection = JoinBase();
+         var command = new MySqlCommand();
+         command.Connection = connection;
+         command.CommandText = query;
+         command.ExecuteReader();
+         connection.Close();
+     }
+    
+     public static void AddMaterial(string materialType) {
+    
+         var query = "INSERT material(type) " +
+                     $"VALUES ('{materialType}');";
+         using var connection = JoinBase();
+         var command = new MySqlCommand();
+         command.Connection = connection;
+         command.CommandText = query;
+         command.ExecuteReader();
+         connection.Close();
+     }
     
     // public static void AddMaterialParameter(AddMaterialWindow.Xrecord record) {
     //
@@ -83,18 +137,18 @@ public abstract class DataBaseWorker {
     //     connection.Close();
     // }
     
-    // public static void UpdateParameter(int id, ParameterInfo parameterInfo) {
-    //
-    //     var query = "UPDATE parameter " +
-    //                 $"SET name = '{parameterInfo.Name}', symbol = '{parameterInfo.Symbol}', unit = '{parameterInfo.Unit}' " +
-    //                 $"WHERE ID_parameter = {id}";
-    //     using var connection = JoinBase();
-    //     var command = new MySqlCommand();
-    //     command.Connection = connection;
-    //     command.CommandText = query;
-    //     command.ExecuteReader();
-    //     connection.Close();
-    // }
+     public static void UpdateParameter(int id, ParameterInfo parameterInfo) {
+    
+         var query = "UPDATE parameter " +
+                     $"SET name = '{parameterInfo.Name}', symbol = '{parameterInfo.Symbol}', unit = '{parameterInfo.Unit}' " +
+                     $"WHERE ID_parameter = {id}";
+         using var connection = JoinBase();
+         var command = new MySqlCommand();
+         command.Connection = connection;
+         command.CommandText = query;
+         command.ExecuteReader();
+         connection.Close();
+     }
     //
     // public static List<int> GetParametersId() {
     //
@@ -214,7 +268,6 @@ public abstract class DataBaseWorker {
         var reader = command.ExecuteReader();
         var result = reader.Read();
         connection.Close();
-        
         return result;
     }
     //
@@ -278,26 +331,26 @@ public abstract class DataBaseWorker {
     //     return result;
     // }
     //
-    // public static void DeleteMaterial(string materialType) {
-    //     var query = $"DELETE FROM material WHERE type = \"{materialType}\";";
-    //     using var connection = JoinBase();
-    //     var command = new MySqlCommand();
-    //     command.Connection = connection;
-    //     command.CommandText = query;
-    //     command.ExecuteReader();
-    //     connection.Close();
-    // }
-    //
-    // public static void DeleteParameter(int id) {
-    //     var query = $"DELETE FROM parameter WHERE ID_parameter = {id};";
-    //     using var connection = JoinBase();
-    //     var command = new MySqlCommand();
-    //     command.Connection = connection;
-    //     command.CommandText = query;
-    //     command.ExecuteReader();
-    //     connection.Close();
-    // }
-    //
+     public static void DeleteMaterial(string materialType) {
+         var query = $"DELETE FROM material WHERE type = \"{materialType}\";";
+         using var connection = JoinBase();
+         var command = new MySqlCommand();
+         command.Connection = connection;
+         command.CommandText = query;
+         command.ExecuteReader();
+         connection.Close();
+     }
+    
+     public static void DeleteParameter(int id) {
+         var query = $"DELETE FROM parameter WHERE ID_parameter = {id};";
+         using var connection = JoinBase();
+         var command = new MySqlCommand();
+         command.Connection = connection;
+         command.CommandText = query;
+         command.ExecuteReader();
+         connection.Close();
+     }
+    
     // public static void DeleteMaterialInfo(string materialType) {
     //
     //     var query = "DELETE " +
@@ -337,44 +390,6 @@ public abstract class DataBaseWorker {
         return result;
     }*/
     //
-    
-    public static string ClickExport() {
-        //@TODO: поменять -p в методе и в app.config
-        try {
-
-            string commands = @"cd C:\Program Files\MySQL\MySQL Server 8.0\bin && mysqldump.exe -h127.0.0.1 " +
-                              @$"-uroot -p04042002Mm! chemical > {Environment.CurrentDirectory}\dump.sql";
-            string batPath = Path.Combine(Path.GetTempPath(), "dump.bat");
-            File.WriteAllText(batPath, commands);
-            Process cmd = Process.Start(batPath);
-            cmd.WaitForExit();
-            File.Delete(batPath);
-            return Path.GetTempPath();
-        }
-        catch
-        {
-            Console.WriteLine("Ошибка");
-            return "";
-        }
-    }
-    
-    public static bool ClickImport() {
-        //@TODO: поменять -p в методе и в app.config
-        try {
-            string commands = @$"cd C:\Program Files\MySQL\MySQL Server 8.0\bin && mysql -uroot -p04042002Mm! chemical < {Environment.CurrentDirectory}\dump.sql";
-            string batPath = Path.Combine(Path.GetTempPath(), "dump.bat");
-            File.WriteAllText(batPath, commands);
-            Process cmd = Process.Start(batPath);
-            cmd.WaitForExit();
-            File.Delete(batPath);
-            return true;
-        }
-        catch
-        {
-            Console.WriteLine("Ошибка");
-            return false;
-        }
-    }
     public static List<MaterialInfo> GetMaterialsInfoForLabel(string materialName) {
         
         var query = "SELECT name, value, unit " +
