@@ -1,0 +1,297 @@
+﻿@page
+@using ChemicalWeb.DAL
+@model ChemicalWeb.Views.Admin.Admin
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var users = DataBaseWorker.GetUsers();
+    var materials = DataBaseWorker.GetMaterials();
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry</title>
+</head>
+
+<body>
+
+<div class="overlay">
+    <form action="/Admin/AddUser" method="post">
+        <label>Имя: </label>
+        <input type="text" name="login">
+        <label>Пароль: </label>
+        <input type="text" name="password">
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+
+<div class="overlayUser">
+    <form action="/Admin/ChangePassword" method="post">
+        <label>Имя: </label>
+        <select class="ComboBoxUser" name="login">
+            @foreach (var user in users)
+            {
+                <option value="@user.login">@user.login</option>
+            }
+        </select>
+        <label>Пароль: </label>
+        <input type="text" name="password">
+        <button type="submit">Изменить</button>
+    </form>
+</div>
+
+<div class="overlayDel">
+    <form action="/Admin/DeleteUser" method="post">
+        <label>Имя: </label>
+        <select class="ComboBoxUserDel" name="login">
+            @foreach (var user in users)
+            {
+                <option value="@user.login">@user.login</option>
+            }
+        </select>
+        <button type="submit">Удалить</button>
+    </form>
+</div>
+
+<div class="ParChange">
+    <form>
+        <label>Параметр: </label>
+        <select class="ComboBoxUserDel">
+            <option>Пункт 1</option>
+            <option>Пункт 2</option>
+        </select>
+        <label>Символ: </label>
+        <input type="text" name="Parname1">
+        <label>Единицы измерения: </label>
+        <input type="text" name="Parname2">
+        <button type="submit">Изменить</button>
+    </form>
+</div>
+
+<div class="ParAdd">
+    <form>
+        <label>Параметр: </label>
+        <input type="text" name="Parname3">
+        <label>Символ: </label>
+        <input type="text" name="Parname1">
+        <label>Единицы измерения: </label>
+        <input type="text" name="Parname2">
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+
+<div class="ParDel">
+    <form>
+        <label>Параметр: </label>
+        <select class="ComboBoxUserDel">
+            <option>Пункт 1</option>
+            <option>Пункт 2</option>
+        </select>
+        <button type="submit">Удалить</button>
+    </form>
+</div>
+
+<div class="MatDel">
+    <form action="/Admin/DeleteMaterial">
+        <label>материал: </label>
+        <select class="ComboBoxUserDel">
+            @foreach (var material in materials)
+            {
+                <option value="@material">@material</option>
+            }
+        </select>
+        <button type="submit">Удалить</button>
+    </form>
+</div>
+
+<div class="MatAdd">
+    <form action="/Admin/AddMaterial" method="post">
+        <label>Материал: </label>
+        <input type="text" name="material">
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+
+<div class="MatChange">
+    <
+    <form>
+        <label>материал: </label>
+        <select class="ComboBoxUserDel">
+            @foreach (var material in materials)
+            {
+                <option value="@material">@material</option>
+            }
+        </select>
+        <button>Добавить параметр</button>
+        <button type="submit">Изменить</button>
+    </form>
+</div>
+
+<div class="tab-container">
+    <div class="tab-headers">
+        <div class="tab-header active" data-tab="tab1">Пользователи</div>
+        <div class="tab-header" data-tab="tab2">Материалы</div>
+        <div class="tab-header" data-tab="tab3">Параметры</div>
+        <form class="exit" action="/Admin/GoBack">
+            <button type="submit">Выход</button>
+        </form>
+    </div>
+    <div class="tab-content">
+        <div class="tab active" data-tab="tab1">
+            <div class="container">
+                <div class="buttons">
+                    <button class="addUser">Добавить пользователя</button>
+                    <button class="changeUser">Изменить пароль</button>
+                    <button class="DelUser">Удалить пользователя</button>
+                </div>
+                <table>
+                    <tr>
+                        <th>Имя пользователя</th>
+                        <th>Пароль</th>
+                    </tr>
+
+                    @foreach (var user in users)
+                    {
+                        <tr>
+                            <td>@user.login</td>
+                            <td>@user.password</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+        <div class="tab" data-tab="tab2">
+            <div class="container">
+                <div class="buttons">
+                    <button class="AddMat">Добавить материал</button>
+                    <button class="ChangeMat">Изменить материал</button>
+                    <button class="DelMat">Удалить материал</button>
+                </div>
+                <table>
+                    <tr>
+                        <th>Название материала</th>
+                        <th>Название параметра</th>
+                        <th>Значение</th>
+                        <th>Единица измерения</th>
+                    </tr>
+                    @foreach (var material in materials)
+                    {
+                        var materialsInfo = DataBaseWorker.GetMaterialsInfoForLabel(material);
+                        if (materialsInfo.Count == 0)
+                        {
+                            <tr>
+                                <td>@material</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        }
+                        foreach (var parameter in materialsInfo)
+                        {
+                            <tr>
+                                <td>@material</td>
+                                <td>@parameter.MaterialType</td>
+                                <td>@parameter.Value</td>
+                                <td>@parameter.Unit</td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+        <div class="tab par" data-tab="tab3">
+            <div class="container">
+                <div class="buttons">
+                    <button class="parAddBut">Добавить параметр</button>
+                    <button class="parChangeBut">Изменить параметр</button>
+                    <button class="parDelBut">Удалить параметр</button>
+                </div>
+                <table>
+                    <tr>
+                        <th>Назнвание параметра</th>
+                        <th>Символ</th>
+                        <th>Единицы измерения</th>
+                    </tr>
+                    <tr>
+                        <td>Ячейка 1</td>
+                        <td>Ячейка 2</td>
+                        <td>Ячейка 3</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+var tabHeaders = document.querySelectorAll(".tab-header");
+for (var i = 0; i < tabHeaders.length; i++) {
+  tabHeaders[i].addEventListener("click", function() {
+    var currentTab = this.dataset.tab;
+    document.querySelector(".tab.active").classList.remove("active");
+    this.classList.add("active");
+    document.querySelector(".tab[data-tab='" + currentTab + "']").classList.add("active");
+  });
+}
+
+var button = document.querySelector(".exit");
+button.addEventListener("click", function () {
+  window.location.href = "index.html";
+});
+
+
+var buttonForm1 = document.querySelector(".addUser");
+buttonForm1.addEventListener("click", function () {
+  document.querySelector('.overlay').style.display = 'flex';
+});
+
+var buttonForm2 = document.querySelector(".changeUser");
+buttonForm2.addEventListener("click", function () {
+  document.querySelector('.overlayUser').style.display = 'flex';
+});
+
+var buttonForm3 = document.querySelector(".DelUser");
+buttonForm3.addEventListener("click", function () {
+  document.querySelector('.overlayDel').style.display = 'flex';
+});
+
+var buttonForm4 = document.querySelector(".parDelBut");
+buttonForm4.addEventListener("click", function () {
+  document.querySelector('.ParDel').style.display = 'flex';
+});
+
+var buttonForm5 = document.querySelector(".parChangeBut");
+buttonForm5.addEventListener("click", function () {
+  document.querySelector('.ParChange').style.display = 'flex';
+});
+
+var buttonForm6 = document.querySelector(".parAddBut");
+buttonForm6.addEventListener("click", function () {
+  document.querySelector('.ParAdd').style.display = 'flex';
+});
+
+var buttonForm7 = document.querySelector(".DelMat");
+buttonForm7.addEventListener("click", function () {
+  document.querySelector('.MatDel').style.display = 'flex';
+});
+
+var buttonForm8 = document.querySelector(".ChangeMat");
+buttonForm8.addEventListener("click", function () {
+  document.querySelector('.MatChange').style.display = 'flex';
+});
+
+var buttonForm9 = document.querySelector(".AddMat");
+buttonForm9.addEventListener("click", function () {
+  document.querySelector('.MatAdd').style.display = 'flex';
+});
+</script>
+</body>
+
+</html>

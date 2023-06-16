@@ -3,12 +3,12 @@ builder.Services.AddControllersWithViews();
 var app = builder.Build();
 
 
-// app.MapControllerRoute(
-//     "default",
-//     "{controller=Home}/{action=Index}");
-app.MapControllerRoute(
+ app.MapControllerRoute(
+     "default",
+     "{controller=Home}/{action=Index}");
+/*app.MapControllerRoute(
     "User",
-    "{controller=User}/{action=User}");
+    "{controller=User}/{action=User}");*/
 
 
 app.UseStaticFiles();
